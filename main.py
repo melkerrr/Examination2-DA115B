@@ -14,7 +14,7 @@ def main():
     if player2_name:
         player2 = Player(player2_name)
     else:
-        player2 = None
+        player2 = Player('Computer')
 
     game = Game(player1, player2)
     stats = Stats()
