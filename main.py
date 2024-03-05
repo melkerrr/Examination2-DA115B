@@ -28,7 +28,7 @@ def main():
         if choice == '1':
             game.play_game()
             print('\nGame Over!')
-            print(f'{player1.name}: {player1.score}')
+            print(f'\n{player1.name}: {player1.score}')
             if player2:
                 print(f'{player2.name}: {player2.score}')
             if player1.score > player2.score:
@@ -48,7 +48,7 @@ def main():
             print('\nHigh Scores:')
             high_scores = stats.get_high_scores()
             for i, (name, data) in enumerate(high_scores):
-                print(f"{i+1}. {name}: Score - {data['score']}, Games Played - {data['games_played']}")
+                print(f"\n{i+1}. {name}: Score - {data['score']}, Games Played - {data['games_played']}")
         elif choice == '3':
             print('\nRules:')
             print('The game of Pig is a simple two-player dice game.')
