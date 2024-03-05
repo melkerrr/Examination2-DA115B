@@ -8,6 +8,7 @@ class Game:
         self.player1 = player1
         self.player2 = player2
         self.stats_manager = StatsManager()
+        self.current_game_over = False
         self.difficulty = Difficulty(difficulty)
         self.current_player = player1
 
@@ -81,3 +82,6 @@ class Game:
         else:
             winner = "It's a draw!"
         print(f'Winner: {winner}')
+
+    def quit_game(self):
+        self.current_game_over = True
