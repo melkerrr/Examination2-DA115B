@@ -3,27 +3,13 @@ from game import Game
 from stats import Stats
 from cheat import Cheat
 from difficulty import Difficulty
+from statsmanager import StatsManager
 
 def main():
     print('Welcome to Pig Dice Game!')
 
-    player1_name = input('Enter name for player 1: ')
-    player1 = Player(player1_name)
-
-    player2_name = input('Enter name for player 2 (or press Enter to play vs computer): ')
-    if player2_name:
-        player2 = Player(player2_name)
-    else:
-        player2 = Player('Computer')
-        difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
-        while difficulty_level not in ['easy', 'hard']:
-            print("Difficulty level inbalid. Please choose 'easy' or 'hard'.")
-            difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
-        player2.difficulty = Difficulty(difficulty_level)
-
-    game = Game(player1, player2)
-    stats = Stats()
-
+    stats_manager = StatsManager()
+    
     while True:
         print('\n1. Play Game')
         print('2. View High Scores')
@@ -34,16 +20,28 @@ def main():
         choice = input('Enter your choice: ')
 
         if choice == '1':
+            player1_name = input('Enter name for player 1: ')
+            player1 = Player(player1_name)
+            player2_name = input('Enter name for player 2 (or press Enter to play vs computer): ')
+            if player2_name:
+                player2 = Player(player2_name)
+            else:
+                player2 = Player('Computer')
+                difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
+                while difficulty_level not in ['easy', 'hard']:
+                    print("Difficulty level inbalid. Please choose 'easy' or 'hard'.")
+                    difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
+                player2.difficulty = Difficulty(difficulty_level)
+
+            game = Game(player1, player2)
             game.play_game()
-            stats.update_stats(player1.name, player1.score)
-            if player2:
-                stats.update_stats(player2.name, player2.score)
+            stats_manager.update_stats(player1.name, player1.score)
+            stats_manager.update_stats(player2.name, player2.score)
             player1.reset_score()
-            if player2:
-                player2.reset_score()
+            player2.reset_score()
         elif choice == '2':
             print('\nHigh Scores:')
-            high_scores = stats.get_high_scores()
+            high_scores = stats_manager.get_high_scores()
             for i, (name, data) in enumerate(high_scores):
                 print(f"\n{i+1}. {name}: Score - {data['score']}, Games Played - {data['games_played']}")
         elif choice == '3':
