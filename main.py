@@ -35,11 +35,16 @@ def main():
                 player2.difficulty = Difficulty(difficulty_level)
 
             game = Game(player1, player2)
-            game.play_game()
-            stats_manager.update_stats(player1.name, player1.score)
-            stats_manager.update_stats(player2.name, player2.score)
-            player1.reset_score()
-            player2.reset_score()
+            while not game.current_game_over:
+                game.play_game()
+                stats_manager.update_stats(player1.name, player1.score)
+                stats_manager.update_stats(player2.name, player2.score)
+                player1.reset_score()
+                player2.reset_score()
+                if not game.current_game_over:
+                    restart = input('Do you want to restart the game? (yes/no): ').lower()
+                    if restart != 'yes':
+                        break
         elif choice == '2':
             print('\nHigh Scores:')
             high_scores = stats_manager.get_high_scores()
