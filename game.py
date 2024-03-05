@@ -1,5 +1,7 @@
 import random
 
+from difficulty import Difficulty
+
 class Game:
     def __init__(self, player1, player2=None, difficulty='easy'):
         self.player1 = player1
