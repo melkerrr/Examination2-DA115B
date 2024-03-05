@@ -2,6 +2,7 @@ from player import Player
 from game import Game
 from stats import Stats
 from cheat import Cheat
+from difficulty import Difficulty
 
 def main():
     print('Welcome to Pig Dice Game!')
