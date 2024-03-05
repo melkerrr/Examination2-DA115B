@@ -21,7 +21,8 @@ def main():
         print('\n1. Play Game')
         print('2. View High Scores')
         print('3. Rules')
-        print('4. Quit')
+        print('4. Cheat')
+        print('5. Quit')
 
         choice = input('Enter your choice: ')
 
@@ -56,7 +57,17 @@ def main():
             print('If they roll a 1, their turn ends and they score no points for that turn.')
             print('If they roll any other number, it is added to their turn total and they can choose to roll again or hold.')
             print('The first player to reach 100 points win.')
-        elif choice =='4':
+        elif choice == '4':
+            cheat_player = input('Enter name of player to activate cheat for: ')
+            if cheat_player.lower() == player1.name.lower():
+                Cheat.activate_cheat(player1)
+                print(f'\nCheat activated for {player1.name}.')
+            elif player2 and cheat_player.lower() == player2.name.lower():
+                Cheat.activate_cheat(player2)
+                print(f'\nCheat activated for {player2.name}.')
+            else:
+                print('\nPlayer not found!')
+        elif choice == '5':
             print('See you soon!')
             break
         else:
