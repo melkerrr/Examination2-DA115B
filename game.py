@@ -1,9 +1,10 @@
 import random
 
 class Game:
-    def __init__(self, player1, player2=None):
+    def __init__(self, player1, player2=None, difficulty='easy'):
         self.player1 = player1
         self.player2 = player2
+        self.difficulty = Difficulty(difficulty)
         self.current_player = player1
 
     def switch_player(self):
@@ -46,18 +47,20 @@ class Game:
                 else:
                     print("Invalid choice! Please choose 'r' to roll or 'h' to hold.")
             else: # computer's turn
-                roll = self.roll_dice()
-                print(f'\n{self.current_player.name} rolled: {roll}') 
-                if roll == 1:
-                    print('\nThe computer rolled a 1. Turn ends.')
-                    break
-                else:
-                    points += roll
-                    print(f'Points accumulated this turn: {points}')  
-                    if points >= 20 or self.current_player.score + points >= 100:
-                        print(f'\nThe computer holds. Points earned: {points}')
-                        self.current_player.update_score(points)
+                roll_again = self.difficulty.decide_roll_again(points, self.current_player.score)
+                if roll_again:
+                    roll = self.roll_dice()
+                    print(f'\n{self.current_player.name} rolled: {roll}') 
+                    if roll == 1:
+                        print('\nThe computer rolled a 1. Turn ends.')
                         break
+                    else:
+                        points += roll
+                        print(f'Points accumulated this turn: {points}')  
+                        if points >= 20 or self.current_player.score + points >= 100:
+                            print(f'\nThe computer holds. Points earned: {points}')
+                            self.current_player.update_score(points)
+                            break
 
     def play_game(self):
         while self.player1.score < 100 and (self.player2 is None or self.player2.score < 100):
