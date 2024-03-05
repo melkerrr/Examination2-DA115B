@@ -1,6 +1,7 @@
 from player import Player
 from game import Game
 from stats import Stats
+from cheat import Cheat
 
 def main():
     print('Welcome to Pig Dice Game!')
@@ -60,11 +61,11 @@ def main():
         elif choice == '4':
             cheat_player = input('Enter name of player to activate cheat for: ')
             if cheat_player.lower() == player1.name.lower():
-                Cheat.activate_cheat(player1)
-                print(f'\nCheat activated for {player1.name}.')
+                cheat_player_name = Cheat.activate_cheat(player1)
+                print(f'\nCheat activated for {cheat_player_name}.')
             elif player2 and cheat_player.lower() == player2.name.lower():
-                Cheat.activate_cheat(player2)
-                print(f'\nCheat activated for {player2.name}.')
+                cheat_player_name = Cheat.activate_cheat(player2)
+                print(f'\nCheat activated for {cheat_player_name}.')
             else:
                 print('\nPlayer not found!')
         elif choice == '5':
