@@ -8,7 +8,7 @@ class Game:
 
     def switch_player(self):
         if self.current_player == self.player1:
-            self.current_player = self.player2
+            self.current_player = self.player2 if self.player2 else self.player1
         else:
             self.current_player = self.player1
 
@@ -16,7 +16,10 @@ class Game:
         return random.randint(1, 6)
     
     def display_score(self):
-        print(f"\n{self.current_player.name}'s current score: {self.current_player.score}")
+        if self.current_player == self.player1:
+            print(f"\n{self.player1.name}'s current score: {self.current_player.score}")
+        elif self.current_player == self.player2:
+            print(f"\n{self.player2.name}'s current score: {self.player2.score}")
     
     def play_turn(self):
         points = 0
@@ -40,6 +43,6 @@ class Game:
                 print("Invalid choice! Please choose 'r' to roll or 'h' to hold.")
 
     def play_game(self):
-        while self.player1.score < 100 and self.player2.score < 100:
+        while self.player1.score < 100 and (self.player2 is None or self.player2.score < 100):
             self.play_turn()
             self.switch_player()
