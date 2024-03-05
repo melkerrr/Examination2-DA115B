@@ -25,22 +25,36 @@ class Game:
         points = 0
         while True:
             self.display_score()
-            choice = input(f"{self.current_player.name}'s turn. Current score: {self.current_player.score}\nRoll or Hold? (r/h): ").lower()
-            if choice == 'r':
+            if self.current_player == self.player1:
+                choice = input(f"{self.current_player.name}'s turn. Current score: {self.current_player.score}\nRoll or Hold? (r/h): ").lower()
+                if choice == 'r':
+                    roll = self.roll_dice()
+                    print(f'{self.current_player.name} rolled: {roll}')
+                    if roll == 1:
+                        print('You rolled a 1. Turn ends.')
+                        break
+                    else:
+                        points += roll
+                        print(f'Points accumulated this turn: {points}')
+                elif choice == 'h':
+                    print(f'{self.current_player.name} holds. Points earned: {points}')
+                    self.current_player.update_score(points)
+                    break
+                else:
+                    print("Invalid choice! Please choose 'r' to roll or 'h' to hold.")
+            else: # computer's turn
                 roll = self.roll_dice()
-                print(f'{self.current_player.name} rolled: {roll}')
+                print(f'\n{self.current_player.name} rolled: {roll}') 
                 if roll == 1:
-                    print('You rolled a 1. Turn ends.')
+                    print('\nThe computer rolled a 1. Turn ends.')
                     break
                 else:
                     points += roll
-                    print(f'Points accumulated this turm: {points}')
-            elif choice == 'h':
-                print(f'{self.current_player.name} holds. Points earned: {points}')
-                self.current_player.update_score(points)
-                break
-            else:
-                print("Invalid choice! Please choose 'r' to roll or 'h' to hold.")
+                    print(f'Points accumulated this turn: {points}')  
+                    if points >= 20 or self.current_player.score + points >= 100:
+                        print(f'\nThe computer holds. Points earned: {points}')
+                        self.current_player.update_score(points)
+                        break
 
     def play_game(self):
         while self.player1.score < 100 and (self.player2 is None or self.player2.score < 100):
