@@ -1,11 +1,13 @@
 import random
 
 from difficulty import Difficulty
+from statsmanager import StatsManager
 
 class Game:
     def __init__(self, player1, player2=None, difficulty='easy'):
         self.player1 = player1
         self.player2 = player2
+        self.stats_manager = StatsManager()
         self.difficulty = Difficulty(difficulty)
         self.current_player = player1
 
