@@ -16,7 +16,7 @@ class Game:
         return random.randint(1, 6)
     
     def display_score(self):
-        print(f"{self.current_player.name}'s current score: {self.current_player.score}")
+        print(f"\n{self.current_player.name}'s current score: {self.current_player.score}")
     
     def play_turn(self):
         points = 0
