@@ -15,9 +15,13 @@ class Game:
     def roll_dice(self):
         return random.randint(1, 6)
     
+    def display_score(self):
+        print(f"{self.current_player.name}'s current score: {self.current_player.score}")
+    
     def play_turn(self):
         points = 0
         while True:
+            self.display_score()
             choice = input(f"{self.current_player.name}'s turn. Current score: {self.current_player.score}\nRoll or Hold? (r/h): ").lower()
             if choice == 'r':
                 roll = self.roll_dice()
