@@ -9,19 +9,20 @@ def main():
     print('Welcome to Pig Dice Game!')
 
     stats_manager = StatsManager()
+    player1_name = input('Enter name for player 1: ')
+    player1 = Player(player1_name)
     
     while True:
         print('\n1. Play Game')
         print('2. View High Scores')
         print('3. Rules')
         print('4. Cheat')
-        print('5. Quit')
+        print('5. Change player names')
+        print('6. Quit')
 
         choice = input('Enter your choice: ')
 
         if choice == '1':
-            player1_name = input('Enter name for player 1: ')
-            player1 = Player(player1_name)
             player2_name = input('Enter name for player 2 (or press Enter to play vs computer): ')
             if player2_name:
                 player2 = Player(player2_name)
@@ -29,7 +30,7 @@ def main():
                 player2 = Player('Computer')
                 difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
                 while difficulty_level not in ['easy', 'hard']:
-                    print("Difficulty level inbalid. Please choose 'easy' or 'hard'.")
+                    print("Difficulty level invalid. Please choose 'easy' or 'hard'.")
                     difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
                 player2.difficulty = Difficulty(difficulty_level)
 
@@ -62,6 +63,10 @@ def main():
             else:
                 print('\nPlayer not found!')
         elif choice == '5':
+            new_name = input('Enter new name for player 1: ')
+            player1.name = new_name
+            print(f'Player 1 changed name to: {player1.name}')
+        elif choice == '6':
             print('See you soon!')
             break
         else:
