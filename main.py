@@ -15,6 +15,11 @@ def main():
         player2 = Player(player2_name)
     else:
         player2 = Player('Computer')
+        difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
+        while difficulty_level not in ['easy', 'hard']:
+            print("Difficulty level inbalid. Please choose 'easy' or 'hard'.")
+            difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
+        player2.difficulty = Difficulty(difficulty_level)
 
     game = Game(player1, player2)
     stats = Stats()
