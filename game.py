@@ -19,7 +19,10 @@ class Game:
         if self.current_player == self.player1:
             print(f"\n{self.player1.name}'s current score: {self.current_player.score}")
         elif self.current_player == self.player2:
-            print(f"\n{self.player2.name}'s current score: {self.player2.score}")
+            if self.player2:
+                print(f"\n{self.player2.name}'s current score: {self.player2.score}")
+            else:
+                print("\nComputer's current score is not idsplayed during its turn.")
     
     def play_turn(self):
         points = 0
@@ -60,3 +63,14 @@ class Game:
         while self.player1.score < 100 and (self.player2 is None or self.player2.score < 100):
             self.play_turn()
             self.switch_player()
+        print('\nGame Over!')
+        print(f'\n{self.player1.name}: {self.player1.score}')
+        if self.player2:
+            print(f'{self.player2.name}: {self.player2.score}')
+        if self.player1.score > (self.player2.score if self.player2 else 0):
+            winner = self.player1.name
+        elif self.player2 and self.player2.score > self.player1.score:
+            winner = self.player2.name
+        else:
+            winner = "It's a draw!"
+        print(f'Winner: {winner}')
