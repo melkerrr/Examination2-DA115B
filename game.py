@@ -17,11 +17,23 @@ class Game:
     
     def play_turn(self):
         points = 0
-        roll = self.roll_dice()
-        while roll != 1:
-            points += roll
-            roll = self.roll_dice()
-        self.current_player.update_score(points)
+        while True:
+            choice = input(f"{self.current_player.name}'s turn. Current score: {self.current_player.score}\nRoll or Hold? (r/h): ").lower()
+            if choice == 'r':
+                roll = self.roll_dice()
+                print(f'{self.current_player.name} rolled: {roll}')
+                if roll == 1:
+                    print('You rolled a 1. Turn ends.')
+                    break
+                else:
+                    points += roll
+                    print(f'Points accumulated this turm: {points}')
+            elif choice == 'h':
+                print(f'{self.current_player.name} holds. Points earned: {points}')
+                self.current_player.update_score(points)
+                break
+            else:
+                print("Invalid choice! Please choose 'r' to roll or 'h' to hold.")
 
     def play_game(self):
         while self.player1.score < 100 and self.player2.score < 100:
