@@ -4,6 +4,7 @@ from stats import Stats
 from cheat import Cheat
 from difficulty import Difficulty
 from statsmanager import StatsManager
+from human_player import HumanPlayer
 import cmd
 
 class CmdInterface(cmd.Cmd):
@@ -52,7 +53,7 @@ class CmdInterface(cmd.Cmd):
     def play_as_two_players(self):
         """Play as 2 players"""
         player2_name = input('Enter name for player 2: ')
-        self.player2 = Player(player2_name)
+        self.player2 = HumanPlayer(player2_name)
         self.start_game()
 
     def start_game(self):
