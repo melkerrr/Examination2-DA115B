@@ -31,19 +31,31 @@ class CmdInterface(cmd.Cmd):
         mode_choice = input('Enter your choice: ')
 
         if mode_choice == '1':
-            self.player2 = Player('Computer')
-            difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
-            while difficulty_level not in ['easy', 'hard']:
-                print("Difficulty invalid. Please choose 'easy' or 'hard'.")
-                difficulty_level = input('Choose difficulty level (easy/hard): ')
-            self.player2.difficulty = Difficulty(difficulty_level)
+            self.play_against_computer()
         elif mode_choice == '2':
-            player2_name = input('Enter name for player 2: ')
-            self.player2 = Player(player2_name)
+            self.play_as_two_players()
         else:
-            print('Choice invalid! Choose again.')
+            print('\nInvalid choice! Choose again.')
             self.game_mode()
 
+    def play_against_computer(self):
+        """Play against computer"""
+        player2_name = input('Enter name for computer: ')
+        self.player2 = Player(player2_name)
+        difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
+        while difficulty_level not in ['easy', 'hard']:
+            print("Invalid difficulty level. Please choose 'easy' or 'hard'.")
+            difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
+        self.player2.difficulty = Difficulty(difficulty_level)
+        self.start_game()
+
+    def play_as_two_players(self):
+        """Play as 2 players"""
+        player2_name = input('Enter name for player 2: ')
+        self.player2 = Player(player2_name)
+
+    def start_game(self):
+        """Start the game"""
         self.game = Game(self.player1, self.player2)
         while not self.game.current_game_over:
             self.game.play_game()
