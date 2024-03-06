@@ -23,17 +23,26 @@ def main():
         choice = input('Enter your choice: ')
 
         if choice == '1':
-            player2_name = input('Enter name for player 2 (or press Enter to play vs computer): ')
-            if player2_name:
-                player2 = Player(player2_name)
-            else:
+            # choose the game mode
+            print('\nChoose game mode:')
+            print('1. Play against computer')
+            print('2. Play as 2 players')
+            mode_choice = input('Enter your choice: ')
+
+            if mode_choice == '1':
                 player2 = Player('Computer')
                 difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
                 while difficulty_level not in ['easy', 'hard']:
                     print("Difficulty level invalid. Please choose 'easy' or 'hard'.")
                     difficulty_level = input('Choose difficulty level (easy/hard): ').lower()
                 player2.difficulty = Difficulty(difficulty_level)
-
+            elif mode_choice == '2':
+                player2_name = input('Enter name for player 2: ')
+                player2 = Player(player2_name)
+            else:
+                print('Choice invalid! Choose again.')
+                continue
+            
             game = Game(player1, player2)
             while not game.current_game_over:
                 game.play_game()
