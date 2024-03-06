@@ -1,29 +1,45 @@
-import json
+"""
+Module containing the Stats class representing player statistics.
+"""
 
+class Stats:
+    """
+    Class representing player statistics.
+    """
 
-class StatsManager:
     def __init__(self):
-        self.stats_file = "stats.json"
-        self.stats = self.load_stats()
+        """
+        Initialize the Stats object with an empty dictionary of players.
+        """
+        self.players = {}
 
-    def load_stats(self):
-        try:
-            with open(self.stats_file, "r") as file:
-                return json.load(file)
-        except FileNotFoundError:
-            return {}
+    def add_player(self, player):
+        """
+        Add a player to the statistics.
 
-    def save_stats(self):
-        with open(self.stats_file, "w") as file:
-            json.dump(self.stats, file)
+        Args:
+            player (Player): The player to add.
+        """
+        self.players[player.name] = {"score": player.score, "games_played": 0}
 
     def update_stats(self, player_name, score):
-        if player_name not in self.stats:
-            self.stats[player_name] = {"score": score, "games_played": 1}
-        else:
-            self.stats[player_name]["score"] += score
-            self.stats[player_name]["games_played"] += 1
-        self.save_stats()
+        """
+        Update the statistics for a player with the given score.
+
+        Args:
+            player_name (str): The name of the player.
+            score (int): The score to update for the player.
+        """
+        if player_name in self.players:
+            self.players[player_name]["score"] += score
+            self.players[player_name]["games_played"] += 1
 
     def get_high_scores(self):
-        return sorted(self.stats.items(), key=lambda x: x[1]["score"], reverse=True)
+        """
+        Get the high scores, sorted by score in descending order.
+
+        Returns:
+            list: A list of tuples containing player names and their corresponding statistics.
+        """
+        return sorted(self.players.items(), key=lambda x: x[1]["score"], reverse=True)
+    
