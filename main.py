@@ -1,3 +1,8 @@
+"""
+Module containing the command-line interface for the Pig Dice Game.
+"""
+
+import cmd
 from player import Player
 from game import Game
 from stats import Stats
@@ -5,10 +10,13 @@ from cheat import Cheat
 from difficulty import Difficulty
 from statsmanager import StatsManager
 from human_player import HumanPlayer
-import cmd
 
 
 class CmdInterface(cmd.Cmd):
+    """
+    Class representing the command-line interface for the Pig Dice Game.
+    """
+
     prompt = ">> "
     intro = "Welcome to Pig Dice Game! Type 'help' for available commands."
 
@@ -20,13 +28,18 @@ class CmdInterface(cmd.Cmd):
         self.game = None
 
     def do_play(self, arg):
-        '""Start a new game""'
+        """
+        Start a new game.
+        """
         if not self.player1:
             player1_name = input("Enter name for player 1: ")
             self.player1 = Player(player1_name)
         self.game_mode()
 
     def game_mode(self):
+        """
+        Choose the game mode.
+        """
         print("\nChoose game mode")
         print("1. Play against computer")
         print("2. Play as 2 players")
@@ -41,7 +54,9 @@ class CmdInterface(cmd.Cmd):
             self.game_mode()
 
     def play_against_computer(self):
-        """Play against computer"""
+        """
+        Play against computer.
+        """
         player2_name = input("Enter name for computer: ")
         self.player2 = Player(player2_name)
         difficulty_level = input("Choose difficulty level (easy/hard): ").lower()
@@ -52,13 +67,17 @@ class CmdInterface(cmd.Cmd):
         self.start_game()
 
     def play_as_two_players(self):
-        """Play as 2 players"""
+        """
+        Play as 2 players.
+        """
         player2_name = input("Enter name for player 2: ")
         self.player2 = HumanPlayer(player2_name)
         self.start_game()
 
     def start_game(self):
-        """Start the game"""
+        """
+        Start the game.
+        """
         self.game = Game(self.player1, self.player2)
         while not self.game.current_game_over:
             self.game.play_game()
@@ -72,7 +91,9 @@ class CmdInterface(cmd.Cmd):
                     break
 
     def do_scores(self, arg):
-        '""View high scores""'
+        """
+        View high scores.
+        """
         print("\nHigh Scores:")
         high_scores = self.stats_manager.get_high_scores()
         for i, (name, data) in enumerate(high_scores):
@@ -81,7 +102,9 @@ class CmdInterface(cmd.Cmd):
             )
 
     def do_rules(self, arg):
-        '""View game rules""'
+        """
+        View game rules.
+        """
         print("\nRules:")
         print("The game of Pig is a simple 2-player dice game.")
         print("Each turn, a player rolls a six-sided dice.")
@@ -89,12 +112,14 @@ class CmdInterface(cmd.Cmd):
             "If they roll a 1, their turn ends and they score no points for that turn."
         )
         print(
-            "If they roll any other numbeer, it is added to their turn total and they can choose to roll again or hold."
+            "If they roll any other number, it is added to their turn total and they can choose to roll again or hold."
         )
-        print("The first player to reach 100 points win.")
+        print("The first player to reach 100 points wins.")
 
     def do_cheat(self, arg):
-        '""Activate cheat for a player""'
+        """
+        Activate cheat for a player.
+        """
         cheat_player = input("Enter name of player to activate cheat for: ")
         if cheat_player.lower() == self.player1.name.lower():
             cheat_player_name = Cheat.activate_cheat(self.player1)
@@ -106,13 +131,17 @@ class CmdInterface(cmd.Cmd):
             print("\nPlayer not found!")
 
     def do_rename(self, arg):
-        """Change player 1's name"""
+        """
+        Change player 1's name.
+        """
         new_name = input("Enter new name for player 1: ")
         self.player1.name = new_name
         print(f"Player 1 changed name to: {self.player1.name}")
 
     def do_quit(self, arg):
-        """Quit the game"""
+        """
+        Quit the game.
+        """
         print("See you soon!")
         return True
 
