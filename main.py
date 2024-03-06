@@ -53,6 +53,7 @@ class CmdInterface(cmd.Cmd):
         """Play as 2 players"""
         player2_name = input('Enter name for player 2: ')
         self.player2 = Player(player2_name)
+        self.start_game()
 
     def start_game(self):
         """Start the game"""
