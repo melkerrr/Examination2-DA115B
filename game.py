@@ -107,6 +107,9 @@ class Game:
                     break
                 else:
                     print("Invalid choice! Please choose 'r' to roll or 'h' to hold.")
+                if self.current_player.score >= 100:
+                    self.current_game_over = True
+                    break            
             else:  # computer's turn
                 if self.current_player.score >= 100:
                     print(f'\n{self.current_player.name} holds. Points earned: {points}')
@@ -137,7 +140,7 @@ class Game:
             if self.current_player.score >= 100:
                 self.current_game_over = True
                 break
-            
+
     def play_game(self):
         """
         Play the game until one of the players wins.
