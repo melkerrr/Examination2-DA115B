@@ -74,21 +74,34 @@ class CmdInterface(cmd.Cmd):
         self.player2 = HumanPlayer(player2_name)
         self.start_game()
 
+    def play_turn_for_player(self, player):
+        """
+        Play a turn for the given player
+        """
+        if isinstance(player, HumanPlayer):
+            self.game.play_turn_manual()
+        else:
+            self.game.play_turn()
+
     def start_game(self):
         """
         Start the game.
         """
         self.game = Game(self.player1, self.player2)
         while not self.game.current_game_over:
-            self.game.play_game()
-            self.stats_manager.update_stats(self.player1.name, self.player1.score)
-            self.stats_manager.update_stats(self.player2.name, self.player2.score)
-            self.player1.reset_score()
-            self.player2.reset_score()
-            if not self.game.current_game_over:
-                restart = input("Do you want to restart the game? (yes/no): ").lower()
-                if restart != "yes":
-                    break
+            self.game.switch_player()
+            self.play_turn_for_player(self.game.current_player)
+        print('\nGame Over!')
+        print(f'\n{self.player1.name}: {self.player1.score}')
+        if self.player2:
+            print(f'{self.player2.name}: {self.player2.score}')
+        if self.player1.score > (self.player2.score if self.player2 else 0):
+            winner = self.player1.name
+        elif self.player2 and self.player2.score > self.player1.score:
+            winner = self.player2.name
+        else:
+            winner = "It's a tie!"
+        print(f'Winner: {winner}')
 
     def do_scores(self, arg):
         """
