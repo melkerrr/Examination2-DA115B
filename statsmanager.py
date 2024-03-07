@@ -1,45 +1,59 @@
 """
-Module containing the Stats class representing player statistics.
+statsmanager.py: A module for managing player statistics.
 """
 
-class Stats:
+import json
+
+class StatsManager:
     """
-    Class representing player statistics.
+    A class to manage player statistics.
     """
 
     def __init__(self):
         """
-        Initialize the Stats object with an empty dictionary of players.
+        Initializes the StatsManager with a stats file and loads existing statistics.
         """
-        self.players = {}
+        self.stats_file = "stats.json"
+        self.stats = self.load_stats()
 
-    def add_player(self, player):
+    def load_stats(self):
         """
-        Add a player to the statistics.
+        Loads statistics from the stats file.
+        """
+        try:
+            with open(self.stats_file, "r", encoding="utf-8") as file:
+                return json.load(file)
+        except FileNotFoundError:
+            return {}
 
-        Args:
-            player (Player): The player to add.
+    def save_stats(self):
         """
-        self.players[player.name] = {"score": player.score, "games_played": 0}
+        Saves statistics to the stats file.
+        """
+        with open(self.stats_file, "w", encoding="utf-8") as file:
+            json.dump(self.stats, file)
 
     def update_stats(self, player_name, score):
         """
-        Update the statistics for a player with the given score.
-
-        Args:
-            player_name (str): The name of the player.
-            score (int): The score to update for the player.
+        Updates player statistics with the given score.
         """
-        if player_name in self.players:
-            self.players[player_name]["score"] += score
-            self.players[player_name]["games_played"] += 1
+        if player_name not in self.stats:
+            self.stats[player_name] = {"score": score, "games_played": 1}
+        else:
+            self.stats[player_name]["score"] += score
+            self.stats[player_name]["games_played"] += 1
+        self.save_stats()
 
     def get_high_scores(self):
         """
-        Get the high scores, sorted by score in descending order.
-
-        Returns:
-            list: A list of tuples containing player names and their corresponding statistics.
+        Returns the high scores sorted by score.
         """
-        return sorted(self.players.items(), key=lambda x: x[1]["score"], reverse=True)
-    
+        return sorted(self.stats.items(), key=lambda x: x[1]["score"], reverse=True)
+
+
+if __name__ == "__main__":
+    manager = StatsManager()
+    manager.update_stats("Player1", 100)
+    manager.update_stats("Player2", 150)
+    high_scores = manager.get_high_scores()
+    print(high_scores)
