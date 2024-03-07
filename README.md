@@ -50,3 +50,61 @@ You can also use a local server to view the documentation by the following comma
 ----
 python -m http.server
 ----
+
+
+
+
+
+
+## Running the Complete Test Suite and Generating Coverage Report
+
+To run the complete test suite and generate a coverage report for this project, then follow the instructions below:
+
+### Prerequisites
+
+Before you start, ensure that you have the necessary tools installed:
+
+1. Python: Check that python is installed on your system
+2. Pytest: 'pytest' is a testing framework for python. Install it by using this command:
+
+----
+pip install pytest
+----
+
+3. Coverage: 'coverage' is also a tool for measuring code coverage of python programs. Install it by using this command:
+
+----
+pip install coverage
+----
+
+### Running Tests
+
+1. Open a terminal and find the root directory of the project with command:
+
+----
+cd path/to/your/project
+----
+
+2. Run the complete test suite using the following command:
+
+----
+python -m coverage run -m unittest discover <your directory here>
+----
+
+### Generating coverage report
+
+1. Then after running all the tests, generate a coverage report by the following command and to see the report:
+
+----
+python -m coverage report
+----
+
+This will display a summary of the code coverage. To create a html report type the following command:
+
+----
+python -m coverage html
+----
+
+You can open the generated html report located in the 'htmlcov' directory.
+
+Now with following the instructions you have run the complete test suite and generated a coverage report for the project.
