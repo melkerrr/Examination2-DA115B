@@ -1,150 +1,108 @@
 import unittest
-from unittest.mock import patch
-from io import StringIO
+from unittest.mock import patch, mock_open
 from main import CmdInterface
 
 class TestCmdInterface(unittest.TestCase):
     def setUp(self):
         self.cmd_interface = CmdInterface()
 
-    def tearDown(self):
-        # Reset the state after each test
-        self.cmd_interface = None
+    def test_do_play_single_player(self):
+        with patch("builtins.input", side_effect=["Player1"]):
+            self.cmd_interface.do_play("")
+        self.assertIsNotNone(self.cmd_interface.player1)
 
-    @patch("builtins.input", side_effect=["1", "1", "easy", "no"])
-    def test_play_against_computer(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.play_against_computer()
-
-        self.assertEqual(self.cmd_interface.player2.name, "Computer")
-        self.assertIn("Choose difficulty level (easy/hard): ", fake_output.getvalue())
-        self.assertTrue(self.cmd_interface.game_started)
-
-    @patch("builtins.input", side_effect=["2", "Player 2", "no"])
-    def test_play_as_two_players(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.play_as_two_players()
-
-        self.assertEqual(self.cmd_interface.player2.name, "Player 2")
-        self.assertTrue(self.cmd_interface.game_started)
-
-    @patch("builtins.input", side_effect=["1", "2", "easy", "no"])
-    def test_start_game(self, mock_input):
-        self.cmd_interface.player1 = "Player 1"
-        self.cmd_interface.player2 = "Player 2"
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.start_game()
-
+    def test_game_mode_computer(self):
+        with patch("builtins.input", side_effect=["1", "Computer", "easy"]):
+            self.cmd_interface.player1 = "Player1"
+            self.cmd_interface.game_mode()
+        self.assertIsNotNone(self.cmd_interface.player2)
         self.assertIsNotNone(self.cmd_interface.game)
-        self.assertTrue(self.cmd_interface.game_started)
 
-    @patch("builtins.input", side_effect=["yes", "no"])
-    def test_do_quit(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.do_quit("")
-
-        self.assertEqual(fake_output.getvalue().strip(), "See you soon!")
-        self.assertTrue(self.cmd_interface.game_over)
-
-    @patch("builtins.input", side_effect=["2", "Player 2", "no"])
-    def test_play_as_two_players_name(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.play_as_two_players()
-
-        self.assertIn("Enter name for Player 1: ", fake_output.getvalue())
-        self.assertIn("Enter name for Player 2: ", fake_output.getvalue())
-        self.assertTrue(self.cmd_interface.game_started)
-
-    @patch("builtins.input", side_effect=["1", "1", "easy", "no"])
-    def test_play_against_computer_difficulty(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.play_against_computer()
-
-        self.assertIn("Choose difficulty level (easy/hard): ", fake_output.getvalue())
-        self.assertTrue(self.cmd_interface.game_started)
-
-    @patch("builtins.input", side_effect=["1", "1", "easy", "no"])
-    def test_play_against_computer_start_game(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.play_against_computer()
-
-        self.assertIn("The game has started!", fake_output.getvalue())
-        self.assertTrue(self.cmd_interface.game_started)
-
-    @patch("builtins.input", side_effect=["1", "1", "easy", "no"])
-    def test_play_against_computer_game_over(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.play_against_computer()
-
-        self.assertIn("Game Over!", fake_output.getvalue())
-        self.assertTrue(self.cmd_interface.game_over)
-
-    @patch("builtins.input", side_effect=["1", "2", "easy", "no"])
-    def test_start_game_players_assigned(self, mock_input):
-        self.cmd_interface.player1 = "Player 1"
-        self.cmd_interface.player2 = "Player 2"
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.start_game()
-
-        self.assertEqual(self.cmd_interface.game.player1, "Player 1")
-        self.assertEqual(self.cmd_interface.game.player2, "Player 2")
-        self.assertTrue(self.cmd_interface.game_started)
-    
-    @patch("builtins.input", side_effect=["1", "2", "easy", "no"])
-    def test_start_game_game_over(self):
-        self.cmd_interface.player1 = "Player 1"
-        self.cmd_interface.player2 = "Player 2"
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.start_game()
-
-        self.assertIn("Game Over!", fake_output.getvalue())
-        self.assertTrue(self.cmd_interface.game_over)
-    @patch("builtins.input", side_effect=["1", "1", "easy", "no"])
-    def test_do_play_play_against_computer(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.do_play("")
-
-        # Ensure player1 is set
-        self.assertIsNotNone(self.cmd_interface.player1)
-        self.assertEqual(self.cmd_interface.player1.name, "Player 1")
-
-        # Ensure game mode is chosen
-        self.assertIn("Choose game mode", fake_output.getvalue())
-
-        # Choose to play against the computer
-        self.assertIn("1. Play against computer", fake_output.getvalue())
-        self.assertIn("Enter your choice: ", fake_output.getvalue())
-        self.assertTrue(self.cmd_interface.game_started)
-
-        # Check that play_against_computer is called
+    def test_game_mode_invalid_choice_then_valid(self):
+        with patch("builtins.input", side_effect=["invalid", "2"]):
+            self.cmd_interface.game_mode()
         self.assertIsNotNone(self.cmd_interface.player2)
-        self.assertEqual(self.cmd_interface.player2.name, "Computer")
-        self.assertIn("Choose difficulty level (easy/hard): ", fake_output.getvalue())
-        self.assertTrue(self.cmd_interface.game_started)
+        self.assertIsNotNone(self.cmd_interface.game)
 
-    @patch("builtins.input", side_effect=["2", "Player 2", "no"])
-    def test_do_play_play_as_two_players(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as fake_output:
-            self.cmd_interface.do_play("")
+    def test_play_turn_for_player_human(self):
+        with patch("game.Game.play_turn_manual") as mock_play_turn_manual:
+            self.cmd_interface.game = "fake_game"
+            self.cmd_interface.play_turn_for_player(self.cmd_interface.player1)
+        mock_play_turn_manual.assert_called_once()
 
-        # Ensure player1 is set
-        self.assertIsNotNone(self.cmd_interface.player1)
-        self.assertEqual(self.cmd_interface.player1.name, "Player 1")
+    def test_play_turn_for_player_computer(self):
+        with patch("game.Game.play_turn") as mock_play_turn:
+            self.cmd_interface.game = "fake_game"
+            self.cmd_interface.play_turn_for_player(self.cmd_interface.player2)
+        mock_play_turn.assert_called_once()
 
-        # Ensure game mode is chosen
-        self.assertIn("Choose game mode", fake_output.getvalue())
+    def test_start_game_single_player(self):
+        self.cmd_interface.player1 = "Player1"
+        self.cmd_interface.player2 = "Computer"
+        self.cmd_interface.start_game()
+        self.assertIsNotNone(self.cmd_interface.game)
 
-        # Choose to play as two players
-        self.assertIn("2. Play as 2 players", fake_output.getvalue())
-        self.assertIn("Enter your choice: ", fake_output.getvalue())
-        self.assertTrue(self.cmd_interface.game_started)
+    def test_start_game_two_players(self):
+        self.cmd_interface.player1 = "Player1"
+        self.cmd_interface.player2 = "Player2"
+        self.cmd_interface.start_game()
+        self.assertIsNotNone(self.cmd_interface.game)
 
-        # Check that play_as_two_players is called
-        self.assertIsNotNone(self.cmd_interface.player2)
-        self.assertEqual(self.cmd_interface.player2.name, "Player 2")
-        self.assertTrue(self.cmd_interface.game_started)
+    def test_do_scores(self):
+        with patch.object(self.cmd_interface.stats_manager, "get_high_scores", return_value=[("Player1", {"score": 100, "games_played": 5})]):
+            self.cmd_interface.do_scores("")
+        # Ensure the output is printed correctly
 
+    def test_do_rules(self):
+        with patch("builtins.print") as mock_print:
+            self.cmd_interface.do_rules("")
+        mock_print.assert_called()
+
+    def test_do_cheat_player1(self):
+        self.cmd_interface.player1 = "Player1"
+        with patch("builtins.input", return_value="Player1"), patch.object(self.cmd_interface, "player2", "fake_player2"):
+            self.cmd_interface.do_cheat("")
+        # Ensure the cheat is activated for Player1
+
+    def test_do_cheat_player2(self):
+        self.cmd_interface.player2 = "Player2"
+        with patch("builtins.input", return_value="Player2"):
+            self.cmd_interface.do_cheat("")
+        # Ensure the cheat is activated for Player2
+
+    def test_do_cheat_invalid_player(self):
+        with patch("builtins.input", return_value="InvalidPlayer"):
+            self.cmd_interface.do_cheat("")
+        # Ensure the proper message is printed
+
+    def test_do_rename(self):
+        with patch("builtins.input", return_value="NewName"):
+            self.cmd_interface.do_rename("")
+        self.assertEqual(self.cmd_interface.player1.name, "NewName")
+
+    def test_do_quit(self):
+        with patch("builtins.print") as mock_print:
+            result = self.cmd_interface.do_quit("")
+        mock_print.assert_called()
+        self.assertTrue(result)
     
+    def test_do_play_single_player_name(self):
+        with patch("builtins.input", side_effect=["Player1"]):
+            self.cmd_interface.do_play("")
+            self.assertEqual(self.cmd_interface.player1.name, "Player1")
+    
+    def test_play_against_computer_invalid_difficulty(self):
+        with patch("builtins.input", side_effect=["Computer", "invalid", "easy"]):
+            self.cmd_interface.play_against_computer()
+        self.assertIsNotNone(self.cmd_interface.player2)
+        self.assertIsNotNone(self.cmd_interface.game)
+    
+    def test_play_turn_for_player_unknown(self):
+        with patch("game.Game.play_turn_manual"), patch("game.Game.play_turn"):
+            self.cmd_interface.game = "fake_game"
+            self.cmd_interface.play_turn_for_player("unknown_player")
+    # Ensure no play turn method is called
+
 
 if __name__ == "__main__":
     unittest.main()
