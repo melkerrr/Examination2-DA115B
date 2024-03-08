@@ -3,6 +3,35 @@ Group assignment in the course "Sustainable Development" at Kristianstad Univers
 
 This project is an object-oriented Python application of a dice game called 'Pig'. When playing the game versus the computer, the computer's "intelligence" has been divided into 2 separate difficulty levels. These difficulty levels are 'easy' and 'hard', where the easy difficulty level is pretty much a guaranteed win for the player no matter how the player chooses to play. The hard difficulty level utilizes a well-known approach to the game which makes it harder for the player to win every time with this option selected.
 
+## Installation of game
+
+To run this project locally, follow these steps:
+
+1. Clone the repository to your local computer
+2. Go to the projects directory
+3. Install the required dependencies using:
+
+-----
+pip install -r requirements.txt
+-----
+
+## Usage
+
+1. Navigate to the project directory in the terminal with:
+
+-----
+cd path/to/the/project/
+-----
+
+2. Run the game:
+-----
+python main.py
+-----
+
+
+
+
+
 ## Regenerating Documentation
 
 To regenerate the documentation for this project, then follow this steps:
