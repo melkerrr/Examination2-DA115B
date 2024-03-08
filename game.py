@@ -107,33 +107,48 @@ class Game:
                     break
                 else:
                     print("Invalid choice! Please choose 'r' to roll or 'h' to hold.")
+                if self.current_player.score >= 100:
+                    self.current_game_over = True
+                    break            
             else:  # computer's turn
+                if self.current_player.score >= 100:
+                    print(f'\n{self.current_player.name} holds. Points earned: {points}')
+                    self.current_game_over = True
+                    break
                 roll_again = self.difficulty.decide_roll_again(
                     points, self.current_player.score
                 )
                 if roll_again:
                     roll = self.roll_dice()
-                    print(f"\n{self.current_player.name} rolled: {roll}")
+                    print(f'\n{self.current_player.name} rolled: {roll}')
                     if roll == 1:
-                        print("\nThe computer rolled a 1. Turn ends.")
+                        print('\nThe computer rolled a 1. Turn ends.')
                         break
                     else:
                         points += roll
-                        print(f"Points accumulated this turn: {points}")
-                        if points >= 20 or self.current_player.score + points >= 100:
-                            print(f"\nThe computer holds. Points earned: {points}")
-                            self.current_player.update_score(points)
-                            break
+                        print(f'Points accumulated this turn: {points}')
+                        if points >= 20:
+                            if self.current_player.score + points >= 100:
+                                print(f'\nThe computer holds. Points earned: {points}')
+                                self.current_game_over = True
+                            else:
+                                print('\nThe computer decides to hold.')
+                                self.current_player.update_score(points)
+                                break
+                        else:
+                            print('\nThe computer decides to roll again.')
+            if self.current_player.score >= 100:
+                self.current_game_over = True
+                break
 
     def play_game(self):
         """
         Play the game until one of the players wins.
         """
-        while self.player1.score < 100 and (
-            self.player2 is None or self.player2.score < 100
-        ):
+        while not self.current_game_over:
             self.play_turn()
-            self.switch_player()
+            if self.player1.score >= 100 or (self.player2 and self.player2.score >= 100):
+                self.current_game_over = True
         print("\nGame Over!")
         print(f"\n{self.player1.name}: {self.player1.score}")
         if self.player2:
