@@ -1,0 +1,15 @@
+Examination23
+=============
+
+.. toctree::
+   :maxdepth: 4
+
+   main
+   cheat
+   difficulty
+   game
+   human_player
+   player
+   stats
+   statsmanager
+
