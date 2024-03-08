@@ -49,6 +49,8 @@ class StatsManager:
         Returns the high scores sorted by score.
         """
         return sorted(self.stats.items(), key=lambda x: x[1]["score"], reverse=True)
+    
+    
 
 
 if __name__ == "__main__":
