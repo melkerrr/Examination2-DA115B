@@ -108,3 +108,42 @@ python -m coverage html
 You can open the generated html report located in the 'htmlcov' directory.
 
 Now with following the instructions you have run the complete test suite and generated a coverage report for the project.
+
+
+
+
+
+## Generating UML Diagrams
+
+To be able to generate UML diagrams for the python code in the project, you can use the pyreverse tool with the Graphviz. Here are the following steps:
+
+### Prerequisites
+
+Before you start, ensure that you have the necessary tools installed:
+
+1. Python: Make sure python is installed on the system.
+2. Graphviz: Install Graphviz from the offical website (https://www.graphviz.org/download/#windows) and follow the installation instructions there.
+
+If you are using Linux you can instead use on the terminal: sudo apt-get install graphviz
+
+If you are using macOS you can instead use on the terminal: sudo port install graphviz
+
+
+### Generating UML Diagrams
+
+1. Open the terminal and find the path to the directory which contains your python files:
+
+------
+cd path/to/your/project/
+------
+
+2. Run the following command to generate UML diagrams in PNG format:
+
+-----
+pyreverse -o png -p directory-name file1.py file2.py file3.py .... file7.py
+-----
+
+Now Graphviz will generate PNG files with UML diagrams for each module.
+
+You will find the generated PNG files in the same directory as the python files.
+
