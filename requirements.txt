@@ -1,0 +1,19 @@
+# Code analysis
+flake8
+flake8-docstrings
+flake8-polyfill
+
+# metrics.pylint
+pylint
+
+
+# Code style
+black
+
+# Documentation
+sphinx
+sphinx-rtd-theme # ReadTheDocs local build
+graphviz
+
+# Unit test and coverage
+coverage
