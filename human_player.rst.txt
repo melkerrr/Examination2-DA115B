@@ -1,0 +1,7 @@
+HumanPlayer
+=============
+
+.. automodule:: human_player
+   :members:
+   :undoc-members:
+   :show-inheritance:
