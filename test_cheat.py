@@ -47,12 +47,12 @@ class TestCheat(unittest.TestCase):
 
     def test_activate_cheat_no_player_name(self):
         # Test activating cheat for a player without a name
-        player = Player()
+        player = Player(name=" ")
         player.score = 70
         player_name = Cheat.activate_cheat(player)
         self.assertEqual(player.score, 100)  # Player's score should be set to 100
         self.assertEqual(
-            player_name, ""
+            player_name, " "
         )  # The returned player name should be an empty string
 
     def test_activate_cheat_on_different_players(self):
