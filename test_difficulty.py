@@ -32,7 +32,7 @@ class TestDifficulty(unittest.TestCase):
         # Test boundary conditions for hard difficulty
         difficulty = Difficulty("hard")
         self.assertTrue(difficulty.decide_roll_again(14, 65))  # Rolls again with points slightly below threshold
-        self.assertTrue(difficulty.decide_roll_again(15, 65))  # Doesn't roll again with points exactly at threshold
+        self.assertFalse(difficulty.decide_roll_again(15, 65))  # Doesn't roll again with points exactly at threshold
         self.assertTrue(difficulty.decide_roll_again(14, 66))  # Rolls again with score slightly below threshold
         self.assertTrue(difficulty.decide_roll_again(14, 64))  # Rolls again with score slightly below threshold
         self.assertTrue(difficulty.decide_roll_again(14, 80))  # Rolls again with total score slightly below limit
