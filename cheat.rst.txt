@@ -1,9 +1,0 @@
-Cheat Module
-=============
-
-This is the documentation for the cheat module.
-
-.. automodule:: cheat
-   :members:
-   :undoc-members:
-   :show-inheritance:
