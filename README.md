@@ -171,5 +171,21 @@ You will find the generated PNG files in the same directory as the python files.
 
 For example: **pylint main.py**
 
+### Flake8
+
+1. Install Flake8
+
+**pip install flake8**
+
+2. Navigate to the correct directory
+
+**cd path/to/your/project/**
+
+**cd src**
+
+4. Run Flake8
+
+**flake8 .**
+
 ## For more information check out the "MakeFiles"
 
