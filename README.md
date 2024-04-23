@@ -100,7 +100,9 @@ Before you start, ensure that you have the necessary tools installed:
 
 2. Run the complete test suite using the following command:
 
-**python -m coverage run -m unittest discover <your directory here>**
+**cd src**
+
+**python -m coverage run -m unittest discover**
 
 ### Generating coverage report
 
