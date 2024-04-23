@@ -155,6 +155,21 @@ Now Graphviz will generate PNG files with UML diagrams for each module.
 
 You will find the generated PNG files in the same directory as the python files.
 
+### Running linters
+
+1. Open the terminal and find the path to the directory which contains your python files:
+
+**cd path/to/your/project/**
+
+**cd src**
+
+2. Run the following command to install pylint
+
+**pip install pylint**
+
+3. Run pylint for the chosen file.
+
+For example: **pylint main.py**
 
 ## For more information check out the "MakeFiles"
 
