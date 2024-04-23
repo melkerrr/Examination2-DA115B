@@ -1,7 +1,0 @@
-Difficulty Module
-=================
-
-.. automodule:: difficulty
-   :members:
-   :undoc-members:
-   :show-inheritance:
