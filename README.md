@@ -17,14 +17,12 @@ To run this project locally, follow these steps:
 
 1. Navigate to the project directory in the terminal with:
 
------
-cd path/to/the/project/
------
+**cd path/to/the/project/**
 
 2. Run the game:
------
-python main.py
------
+
+**python main.py**
+
 
 
 
@@ -41,29 +39,21 @@ Before you start, check that you have the necessary tools installed:
 1. [Python](https://python.org/downloads/): Make sure Python is installed on the system.
 2. [Sphinx](https://www.sphinx-doc.org/): Sphinx is a documentation generation tool for python. Install by using the following command on the terminal:
 
-----
-pip install sphinx
-----
+**pip install sphinx**
 
 ### Generating Documentation
 
 1. Navigate to the 'docs' directory in the terminal by:
 
-----
-cd path/to/your/project/docs
-----
+**cd path/to/your/project/docs**
 
 2. Run the following command to generate the HTML documentation:
 
-----
-.\make.bat html
-----
+**.\make.bat html**
 
 If you are using macOS or Linux then use:
 
-----
-make html
-----
+**make html**
 
 This command will then build the documentation and place the html files in the '_build/html' directory.
 
@@ -74,9 +64,8 @@ This command will then build the documentation and place the html files in the '
 
 You can also use a local server to view the documentation by the following command from the '_build/html' directory:
 
-----
-python -m http.server
-----
+**python -m http.server**
+
 
 
 
@@ -94,43 +83,33 @@ Before you start, ensure that you have the necessary tools installed:
 1. Python: Check that python is installed on your system
 2. Pytest: 'pytest' is a testing framework for python. Install it by using this command:
 
-----
-pip install pytest
-----
+**pip install pytest**
+
 
 3. Coverage: 'coverage' is also a tool for measuring code coverage of python programs. Install it by using this command:
 
-----
-pip install coverage
-----
+**pip install coverage**
 
 ### Running Tests
 
 1. Open a terminal and find the root directory of the project with command:
 
-----
-cd path/to/your/project
-----
+**cd path/to/your/project**
 
 2. Run the complete test suite using the following command:
 
-----
-python -m coverage run -m unittest discover <your directory here>
-----
+**python -m coverage run -m unittest discover <your directory here>**
 
 ### Generating coverage report
 
 1. Then after running all the tests, generate a coverage report by the following command and to see the report:
 
-----
-python -m coverage report
-----
+**python -m coverage report**
 
 This will display a summary of the code coverage. To create a html report type the following command:
 
-----
-python -m coverage html
-----
+**python -m coverage html**
+
 
 You can open the generated html report located in the 'htmlcov' directory.
 
@@ -160,15 +139,12 @@ If you are using macOS you can instead use on the terminal: sudo port install gr
 
 1. Open the terminal and find the path to the directory which contains your python files:
 
-------
-cd path/to/your/project/
-------
+**cd path/to/your/project/**
+
 
 2. Run the following command to generate UML diagrams in PNG format:
 
------
-pyreverse -o png -p directory-name file1.py file2.py file3.py .... file7.py
------
+**pyreverse -o png -p directory-name file1.py file2.py file3.py .... file7.py**
 
 Now Graphviz will generate PNG files with UML diagrams for each module.
 
