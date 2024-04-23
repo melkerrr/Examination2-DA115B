@@ -1,9 +1,0 @@
-Main Module
-============
-
-This is the documentation for the main module.
-
-.. automodule:: main
-   :members:
-   :undoc-members:
-   :show-inheritance:
