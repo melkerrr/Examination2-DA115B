@@ -11,7 +11,6 @@ To run this project locally, follow these steps:
 2. Go to the projects directory
 3. Install the required dependencies using:
 
------
 pip install -r requirements.txt
 -----
 
