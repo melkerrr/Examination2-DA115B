@@ -189,3 +189,12 @@ For example: **pylint main.py**
 
 ## For more information check out the "MakeFiles"
 
+----------------------------------------------------------------------------------------------------------------------
+
+Contact Information
+
+For inquiries or assistance, contact the project maintainer:
+
+Vicente Ibarra & Melker Andersson
+Email: ProjectsONtheGo@gmail.com
+[GitHub Profile] : (github.com/melkerrr)
