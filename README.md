@@ -183,7 +183,7 @@ For example: **pylint main.py**
 
 **cd src**
 
-4. Run Flake8
+3. Run Flake8
 
 **flake8 .**
 
