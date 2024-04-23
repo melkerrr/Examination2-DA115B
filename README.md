@@ -17,7 +17,7 @@ To run this project locally, follow these steps:
 
 1. Navigate to the project directory in the terminal with:
 
-**cd path/to/the/project/**
+**cd path/to/the/project/src/game**
 
 2. Run the game:
 
