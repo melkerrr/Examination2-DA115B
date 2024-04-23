@@ -19,7 +19,7 @@ To run this project locally, follow these steps:
 
 **cd path/to/the/project**
 
-**cd src/game**
+**cd src**
 
 2. Run the game:
 
