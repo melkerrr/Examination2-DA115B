@@ -1,7 +1,0 @@
-StatsManager
-=============
-
-.. automodule:: statsmanager
-   :members:
-   :undoc-members:
-   :show-inheritance:
