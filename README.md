@@ -117,7 +117,7 @@ This will display a summary of the code coverage. To create a html report type t
 
 You can open the generated html report located in the 'htmlcov' directory.
 
-Now with following the instructions you have run the complete test suite and generated a coverage report for the project.
+Now by following the instructions you have run the complete test suite and generated a coverage report for the project.
 
 
 
