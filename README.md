@@ -150,3 +150,6 @@ Now Graphviz will generate PNG files with UML diagrams for each module.
 
 You will find the generated PNG files in the same directory as the python files.
 
+
+## For more information check out the "MakeFiles"
+
