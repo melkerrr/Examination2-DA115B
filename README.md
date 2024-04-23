@@ -145,10 +145,11 @@ If you are using macOS you can instead use on the terminal: sudo port install gr
 
 **cd path/to/your/project/**
 
+**cd src**
 
 2. Run the following command to generate UML diagrams in PNG format:
 
-**pyreverse -o png -p directory-name file1.py file2.py file3.py .... file7.py**
+**pyreverse -o png -p directory-name cheat.py difficulty.py game.py human_player.py main.py player.py stats.py statsmanager.py**
 
 Now Graphviz will generate PNG files with UML diagrams for each module.
 
